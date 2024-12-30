@@ -1,0 +1,10 @@
+beautifulsoup4==4.12.2
+Flask==2.3.2
+Flask-Login==0.6.2
+Flask-WTF==1.1.1
+Jinja2==3.1.2
+nltk==3.8.1
+requests==2.31.0
+textblob==0.17.1
+Werkzeug==2.3.7
+WTForms==3.0.1

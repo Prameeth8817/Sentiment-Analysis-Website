@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filter Reviews</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            border: none;
+            margin-top: 10px;
+        }
+
+        .info-text {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .info-text a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        .info-text a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 class="text-center">Filter Reviews</h2>
+
+        <!-- Logout Button -->
+        <form method="POST" action="/logout" class="text-end mb-3">
+            {{ form.hidden_tag() }}
+            <button type="submit" class="btn btn-secondary">Logout</button>
+        </form>
+
+        <form method="POST" action="/filter_reviews">
+            {{ form.hidden_tag() }}
+            <div class="mb-3">
+                <label for="product_name" class="form-label">Product Name</label>
+                <select id="product_name" name="product_name" class="form-select" required>
+                    <option value="" disabled selected>Select Product</option>
+                    {% for name in product_names %}
+                    <option value="{{ name }}">{{ name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="size" class="form-label">Size</label>
+                <select id="size" name="size" class="form-select">
+                    <option value="" disabled selected>Select Size (Optional)</option>
+                    {% for size in sizes %}
+                    <option value="{{ size }}">{{ size }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="colour" class="form-label">Colour</label>
+                <select id="colour" name="colour" class="form-select">
+                    <option value="" disabled selected>Select Colour (Optional)</option>
+                    {% for colour in colours %}
+                    <option value="{{ colour }}">{{ colour }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="sentiment" class="form-label">Sentiment</label>
+                <select id="sentiment" name="sentiment" class="form-select">
+                    <option value="" disabled selected>Select Sentiment (Optional)</option>
+                    <option value="Positive">Positive</option>
+                    <option value="Negative">Negative</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Filter Reviews</button>
+        </form>
+
+        <!-- Info Text -->
+        <div class="info-text">
+            <p>Can't find your product here? <a href="/review_scraper">Click here</a> to fetch the reviews from Amazon.</p>
+        </div>
+
+        {% if reviews %}
+        <h3 class="mt-5">Filtered Reviews</h3>
+        <table class="table table-bordered mt-3">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Review</th>
+                    <th>Size</th>
+                    <th>Colour</th>
+                    <th>Sentiment</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for review in reviews %}
+                <tr>
+                    <td>{{ review[1] }}</td>
+                    <td>{{ review[2] }}</td>
+                    <td>{{ review[3] }}</td>
+                    <td>{{ review[4] }}</td>
+                    <td>{{ review[6] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+    </div>
+</body>
+</html>

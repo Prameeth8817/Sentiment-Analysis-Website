@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Sentiment Analysis{% endblock %}
+
+{% block content %}
+<div id="sentiment-page" class="form-container">
+    <h2 class="text-center">Sentiment Analysis</h2>
+    <form method="POST" action="/sentiment_analysis">
+        {{ form.hidden_tag() }}
+        <div class="mb-3">
+            <label for="review" class="form-label">Enter Your Review</label>
+            <textarea class="form-control" id="review" name="review_text" rows="4" placeholder="Type your review here..." required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Analyze Sentiment</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}Scrape Reviews{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="form-container">
+                    <h3 class="text-center mb-4">Scrape Product Reviews</h3>
+                    <form method="POST" action="/review_scraper">
+                        {{ form.hidden_tag() }}
+                        <div class="mb-3">
+                            {{ form.product_Name.label(class="form-label") }}
+                            {{ form.product_Name(class="form-control") }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.product_url.label(class="form-label") }}
+                            {{ form.product_url(class="form-control") }}
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Fetch Reviews</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        {% if error_message %}
+        <div class="alert alert-danger mt-4" role="alert">
+            {{ error_message }}
+        </div>
+        {% endif %}
+
+        {% if reviews %}
+        <h4 class="mt-5">Extracted Reviews</h4>
+        <table class="table table-bordered mt-3">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Review</th>
+                    <th>Storage Size</th>
+                    <th>Colour</th>
+                    <th>Verified Purchase</th>
+                    <th>TextBlob Sentiment</th>
+                    <th>NLTK Sentiment</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for review in reviews %}
+                <tr>
+                    <td>{{ review['review_title'] }}</td>
+                    <td>{{ review['review_text'] }}</td>
+                    <td>{{ review['storage_size'] }}</td>
+                    <td>{{ review['colour'] }}</td>
+                    <td>{{ review['verified_purchase'] }}</td>
+                    <td>{{ review['textblob_sentiment'] }}</td>
+                    <td>{{ review['nltk_sentiment'] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+    </div>
+{% endblock %}
